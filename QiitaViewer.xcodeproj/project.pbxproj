@@ -14,6 +14,8 @@
 		8D0E37421EB3227800DBE50E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D0E37401EB3227800DBE50E /* LaunchScreen.storyboard */; };
 		8D0E374D1EB3227800DBE50E /* QiitaViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E374C1EB3227800DBE50E /* QiitaViewerTests.swift */; };
 		8D0E37581EB3227800DBE50E /* QiitaViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E37571EB3227800DBE50E /* QiitaViewerUITests.swift */; };
+		8D9BE1C81EB325FB000A4E46 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D9BE1C61EB325FB000A4E46 /* SwiftyJSON.framework */; };
+		8D9BE1C91EB325FB000A4E46 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D9BE1C71EB325FB000A4E46 /* Alamofire.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		8D0E37531EB3227800DBE50E /* QiitaViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QiitaViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0E37571EB3227800DBE50E /* QiitaViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiitaViewerUITests.swift; sourceTree = "<group>"; };
 		8D0E37591EB3227800DBE50E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D9BE1C61EB325FB000A4E46 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		8D9BE1C71EB325FB000A4E46 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D9BE1C81EB325FB000A4E46 /* SwiftyJSON.framework in Frameworks */,
+				8D9BE1C91EB325FB000A4E46 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +87,7 @@
 				8D0E374B1EB3227800DBE50E /* QiitaViewerTests */,
 				8D0E37561EB3227800DBE50E /* QiitaViewerUITests */,
 				8D0E37351EB3227800DBE50E /* Products */,
+				8D9BE1C51EB325FB000A4E46 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +132,15 @@
 			path = QiitaViewerUITests;
 			sourceTree = "<group>";
 		};
+		8D9BE1C51EB325FB000A4E46 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8D9BE1C61EB325FB000A4E46 /* SwiftyJSON.framework */,
+				8D9BE1C71EB325FB000A4E46 /* Alamofire.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,6 +151,7 @@
 				8D0E37301EB3227800DBE50E /* Sources */,
 				8D0E37311EB3227800DBE50E /* Frameworks */,
 				8D0E37321EB3227800DBE50E /* Resources */,
+				8D9BE1CA1EB32607000A4E46 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -256,6 +273,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8D9BE1CA1EB32607000A4E46 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D0E37301EB3227800DBE50E /* Sources */ = {
@@ -418,6 +453,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = XUVQCNGF4Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = QiitaViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ttk.QiitaViewer;
@@ -431,6 +470,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = XUVQCNGF4Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = QiitaViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ttk.QiitaViewer;
@@ -516,6 +559,7 @@
 				8D0E375E1EB3227800DBE50E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8D0E375F1EB3227800DBE50E /* Build configuration list for PBXNativeTarget "QiitaViewerTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +568,7 @@
 				8D0E37611EB3227800DBE50E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8D0E37621EB3227800DBE50E /* Build configuration list for PBXNativeTarget "QiitaViewerUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +577,7 @@
 				8D0E37641EB3227800DBE50E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
