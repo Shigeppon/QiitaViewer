@@ -4,25 +4,30 @@ import SwiftyJSON
 
 protocol RequestType {
     var URLString: String { get }
-    func createRequest(URLString: String) -> Alamofire.DataRequest
+    var manager: Alamofire.SessionManager { get }
+    func createRequest(URLString: String, manager: Alamofire.SessionManager) -> Alamofire.DataRequest
 }
 
 protocol RequestContextType {}
 extension RequestContextType where Self: RequestType {
     func create(block: @escaping (Alamofire.DataResponse<Any>) -> Void) -> Alamofire.DataRequest {
-        let request = self.createRequest(URLString: URLString)
+        let request = self.createRequest(URLString: URLString, manager: manager)
         request.responseJSON(completionHandler: block)
         return request
     }
-    
-    func createRequest(URLString: String) -> DataRequest {
-        return Alamofire.request(URLString)
+
+    func createRequest(URLString: String, manager: Alamofire.SessionManager) -> DataRequest {
+        return manager.request(URLString)
     }
 }
 
 struct GetArticleListRequestContext: RequestContextType, RequestType {
     var URLString: String {
         return "https://qiita.com/api/v2/items"
+    }
+
+    var manager: SessionManager {
+        return Alamofire.SessionManager.default
     }
 }
 
