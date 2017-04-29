@@ -2,6 +2,30 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+protocol RequestType {
+    var URLString: String { get }
+    func createRequest(URLString: String) -> Alamofire.DataRequest
+}
+
+protocol RequestContextType {}
+extension RequestContextType where Self: RequestType {
+    func create(block: @escaping (Alamofire.DataResponse<Any>) -> Void) -> Alamofire.DataRequest {
+        let request = self.createRequest(URLString: URLString)
+        request.responseJSON(completionHandler: block)
+        return request
+    }
+    
+    func createRequest(URLString: String) -> DataRequest {
+        return Alamofire.request(URLString)
+    }
+}
+
+struct GetArticleListRequestContext: RequestContextType, RequestType {
+    var URLString: String {
+        return "https://qiita.com/api/v2/items"
+    }
+}
+
 class ArticleListViewController: UIViewController, UITableViewDataSource {
     let table = UITableView()
     var articles: [[String: String?]] = []
@@ -20,7 +44,8 @@ class ArticleListViewController: UIViewController, UITableViewDataSource {
     }
 
     func getArticles() {
-        Alamofire.request("https://qiita.com/api/v2/items").responseJSON { response in
+        let context = GetArticleListRequestContext()
+        let request: Alamofire.DataRequest = context.create { (response: Alamofire.DataResponse<Any>) in
             guard let object = response.result.value else {
                 return
             }
@@ -35,6 +60,7 @@ class ArticleListViewController: UIViewController, UITableViewDataSource {
             }
             self.table.reloadData()
         }
+        request.resume()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
